@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial,  sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header{
+            width: 70%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid gray;
+        }
+        nav{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        ul{
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        .logo{
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .burger{
+            display: none;
+            cursor: pointer;
+        }
+        .avatar{
+            width: 50px;
+        }
+        .iks{
+            display: none;
+        }
+        .active{
+            background-color: white;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            left: 0;
+            top: 1px;
+            padding: 30px;
+        }
+        .product{
+            display: flex;
+            gap: 100px;
+            justify-content: center;
+            align-items: center;
+            margin: 40px;
+        }
+        .gallery{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .mainimg{
+            width: 380px;
+            border-radius: 10px;
+        }
+        .thumbnails img{
+            width: 85px;
+            border-radius: 10px;
+        }
+        .thumbnails {
+            display: flex;
+            gap: 13px;
+        }
+
+        .thumbnails img:hover{
+            opacity: 50%;
+        }
+        .row1{
+            display: flex;
+            gap: 10px;
+        }
+        .row2{
+            display: flex;
+            gap: 10px ;
+            margin-top: 10px;
+        }
+        h4{
+            background-color: black;
+            border-radius: 5px;
+            color: white;
+            padding: 4px 5px 0px 5px;
+        }
+        .col span{
+            text-decoration: line-through;
+            color: gray;
+        }
+        .counterbox{
+            background-color: aliceblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            border-radius: 5px;
+            width: 150px;
+            height: 45px;
+        }
+        .minus, .plus{
+            color: rgb(255, 153, 0);
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 25px;
+        }
+        .addtocart{
+            background-color:  rgb(255, 153, 0);
+            color: black;
+            width: 200px;
+            padding: 2px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .gray{
+            color: gray;
+        }
+        .smallcart{
+            box-shadow: 2px 0 10px rgb(89, 88, 88);
+            width: 230px;
+            height: 200px;
+            color: black;
+            text-align: center;
+            border: 5px;
+            position: absolute;
+            top: 107px;
+            right: 40px;
+            display: none;
+            padding: 10px;
+            z-index: 1000;
+            background-color: white;
+        }
+        .smallcart h2{
+            text-align: center;
+        }
+        
+        
+
+
+
+        @media screen and (max-width:450px) {
+            nav ul{
+                display: none;
+            }
+            .burger{
+                display: block;
+                width: 25px;
+            }
+            .iks{
+                display: block;
+            }
+            .product{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .col span{
+                margin-top: 25px;
+            }
+            .counterbox{
+                width: 280px;
+                gap: 70px;
+            }
+            .addtocart{
+                width: 280px;
+                padding: 14px;
+                border: none;
+            }
+            .row2{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .info{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+
+            
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <img class="burger" src="burger.webp" alt="">
+            <p class="logo">sneakers</p>
+            <ul>
+                <p class="iks">x</p>
+                <li>Collections</li>
+                <li>Men</li>
+                <li>Women</li>
+                <li>About</li>
+                <li>Contact</li>
+            </ul>
+            <img class="icon" src="images/icon-cart.svg" alt="">
+            <img  class="avatar" src="images/image-avatar.png" alt="">
+        </nav>
+    </header>
+
+    <main>
+        <div class="product">
+
+            <div class="gallery">
+                <img class="mainimg" src="images/image-product-1.jpg" alt="">
+                <div class="thumbnails">
+                    <img src="images/image-product-1-thumbnail.jpg" onclick="changeImage('images/image-product-1.jpg')" alt="">
+                    <img src="images/image-product-2-thumbnail.jpg" onclick="changeImage('images/image-product-2.jpg')" alt="">
+                    <img src="images/image-product-3-thumbnail.jpg" onclick="changeImage('images/image-product-3.jpg')" alt="">
+                    <img src="images/image-product-4-thumbnail.jpg" onclick="changeImage('images/image-product-4.jpg')" alt="">
+                </div>
+            </div>
+
+            <div class="info">
+                <h3 class="gray">SNEAKERS COMPANY</h3>
+                <h1>Fall Limited Edition <br> Sneakers</h1>
+                <p>These low-profile sneakers are your perfect casual wear companion.</p>
+                <div class="col">
+                    <div class="row1">
+                        <h2>$125.00</h2>
+                        <h4>50%</h4>
+                    </div>
+                    <span>$250.00</span>
+                </div>
+
+                <div class="row2">
+                    <div class="counterbox">
+                        <p class="minus">-</p>
+                        <p class="counter">0</p>
+                        <p class="plus">+</p>
+                    </div>
+                    <button class="addtocart">Add to  cart</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="smallcart">
+        <h2>Cart</h2>
+        <hr>
+        <div class="text"></div>
+    </div>
+
+    <script>
+        const burger = document.querySelector('.burger');
+        const ul = document.querySelector('ul');
+        const iks = document.querySelector('.iks');
+    
+        burger.addEventListener('click', function(){
+            ul.classList.toggle('active');
+        });
+    
+        iks.addEventListener('click', function(){
+            ul.classList.toggle('active');
+        });
+    
+        function changeImage(fourimg){
+            const mainimg = document.querySelector('.mainimg').src = fourimg
+        };
+    
+        let count = 0;
+        const counter = document.querySelector('.counter');
+        const minus = document.querySelector('.minus');
+        const plus = document.querySelector('.plus');
+        
+        minus.addEventListener('click', function(){
+            if (count > 0){
+                count--;
+                counter.textContent = count;
+            }
+        });
+    
+        plus.addEventListener('click', function(){
+            count++;
+            counter.textContent = count;
+        });
+    
+        const text = document.querySelector('.text');
+        const smallcart = document.querySelector('.smallcart');
+        const addtocart = document.querySelector('.addtocart');
+        const icon = document.querySelector('.icon');
+        const mainimg = document.querySelector('.mainimg');
+    
+        icon.addEventListener('click', function(){
+            if (count === 0){
+                smallcart.style.display = 'block';
+                smallcart.innerHTML = `
+                    <h2>Cart</h2>
+                    <hr>
+                    <p>Your  cart is empty</p>
+                `;
+                return;
+            }
+    
+            smallcart.style.display = 'block';
+            smallcart.innerHTML =  `
+                <h2>Cart</h2>
+                <hr>
+                <div class="cart-style" style="display: flex; justify-content: center; align-items: center;  margin-top: 20px;">
+                    <img src="${mainimg.src}" style="width: 50px; height: 50px; border-radius: 10px;" alt="">
+                    <div>
+                        <p style="margin: 0; color: gray; ">Fall Limited Edition Sneakers</p>
+                        <span style="color: gray; ">$125.00 X ${count} <span style="font-weight: bold; color: black;">$${125 * count}.00</span></span>
+                    </div>
+                    <img src="./images/icon-delete.svg" style="width: 15px; height: 20px;" class="delete-btn" alt="">
+               </div>
+               <button style="width: 220px; margin-top: 20px; height: 35px; background-color: rgb(255, 153, 0); border: none;">Checkout</button>
+            `;
+            const deleteBtn = smallcart.querySelector('.delete-btn');
+            deleteBtn.addEventListener('click', function(){
+                smallcart.innerHTML = `
+                    <h2>Cart</h2>
+                    <hr>
+                    <p>Your  cart is empty</p>
+                `;
+                counter.textContent = 0;
+                count = 0;
+            });
+        });
+    
+        addtocart.addEventListener('click', function () {
+            icon.click();
+        });
+    </script>
+    
+</body>
+</html>

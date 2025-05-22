@@ -149,7 +149,19 @@
         .smallcart h2{
             text-align: center;
         }
-        
+        .cartbadge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: rgb(255, 153, 0);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            display: none;
+        }
+
         
 
 
@@ -214,7 +226,10 @@
                 <li>About</li>
                 <li>Contact</li>
             </ul>
-            <img class="icon" src="images/icon-cart.svg" alt="">
+            <div class="cartwrapper" style="position: relative;">
+                <img class="icon" src="images/icon-cart.svg" alt="">
+                <span class="cartbadge" style="display: none;">0</span>
+            </div>
             <img  class="avatar" src="images/image-avatar.png" alt="">
         </nav>
     </header>
@@ -266,82 +281,104 @@
         const ul = document.querySelector('ul');
         const iks = document.querySelector('.iks');
     
-        burger.addEventListener('click', function(){
+        burger.addEventListener('click', function () {
             ul.classList.toggle('active');
         });
     
-        iks.addEventListener('click', function(){
+        iks.addEventListener('click', function () {
             ul.classList.toggle('active');
         });
     
-        function changeImage(fourimg){
-            const mainimg = document.querySelector('.mainimg').src = fourimg
-        };
+        function changeImage(fourimg) {
+            document.querySelector('.mainimg').src = fourimg;
+        }
     
         let count = 0;
         const counter = document.querySelector('.counter');
         const minus = document.querySelector('.minus');
         const plus = document.querySelector('.plus');
-        
-        minus.addEventListener('click', function(){
-            if (count > 0){
-                count--;
-                counter.textContent = count;
-            }
-        });
-    
-        plus.addEventListener('click', function(){
-            count++;
-            counter.textContent = count;
-        });
-    
         const text = document.querySelector('.text');
         const smallcart = document.querySelector('.smallcart');
         const addtocart = document.querySelector('.addtocart');
         const icon = document.querySelector('.icon');
         const mainimg = document.querySelector('.mainimg');
+        const cartbadge = document.querySelector('.cartbadge');
     
-        icon.addEventListener('click', function(){
-            if (count === 0){
-                smallcart.style.display = 'block';
-                smallcart.innerHTML = `
-                    <h2>Cart</h2>
-                    <hr>
-                    <p>Your  cart is empty</p>
-                `;
-                return;
+        function updateCartBadge() {
+            if (count > 0) {
+                cartbadge.textContent = count;
+                cartbadge.style.display = 'block';
+            } else {
+                cartbadge.style.display = 'none';
             }
+        }
     
-            smallcart.style.display = 'block';
-            smallcart.innerHTML =  `
-                <h2>Cart</h2>
-                <hr>
-                <div class="cart-style" style="display: flex; justify-content: center; align-items: center;  margin-top: 20px;">
-                    <img src="${mainimg.src}" style="width: 50px; height: 50px; border-radius: 10px;" alt="">
-                    <div>
-                        <p style="margin: 0; color: gray; ">Fall Limited Edition Sneakers</p>
-                        <span style="color: gray; ">$125.00 X ${count} <span style="font-weight: bold; color: black;">$${125 * count}.00</span></span>
+        function updateCartContent() {
+            if (count === 0) {
+                text.innerHTML = `<p>Your cart is empty</p>`;
+            } else {
+                text.innerHTML = `
+                    <div class="cart-style" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+                        <img src="${mainimg.src}" style="width: 50px; height: 50px; border-radius: 10px;" alt="">
+                        <div style="text-align:left; margin-left:10px;">
+                            <p style="margin: 0; color: gray;">Fall Limited Edition Sneakers</p>
+                            <span style="color: gray;">$125.00 x ${count} 
+                                <span style="font-weight: bold; color: black;">$${125 * count}.00</span>
+                            </span>
+                        </div>
+                        <img src="./images/icon-delete.svg" style="width: 15px; height: 20px; cursor: pointer; margin-left: 10px;" class="delete-btn" alt="">
                     </div>
-                    <img src="./images/icon-delete.svg" style="width: 15px; height: 20px;" class="delete-btn" alt="">
-               </div>
-               <button style="width: 220px; margin-top: 20px; height: 35px; background-color: rgb(255, 153, 0); border: none;">Checkout</button>
-            `;
-            const deleteBtn = smallcart.querySelector('.delete-btn');
-            deleteBtn.addEventListener('click', function(){
-                smallcart.innerHTML = `
-                    <h2>Cart</h2>
-                    <hr>
-                    <p>Your  cart is empty</p>
+                    <button style="width: 220px; margin-top: 5px; height: 35px; background-color: rgb(255, 153, 0); border: none;">Checkout</button>
                 `;
-                counter.textContent = 0;
-                count = 0;
-            });
-        });
+    
+                const deleteBtn = smallcart.querySelector('.delete-btn');
+                deleteBtn.addEventListener('click', function () {
+                    count = 0;
+                    counter.textContent = count;
+                    updateCartBadge();
+                    updateCartContent();
+                });
+            }
+        }
+    
+        function toggleCart() {
+            if (smallcart.style.display === 'block') {
+                smallcart.style.display = 'none';
+            } else {
+                smallcart.style.display = 'block';
+                updateCartContent();
+            }
+        }
+    
+        icon.addEventListener('click', toggleCart);
     
         addtocart.addEventListener('click', function () {
-            icon.click();
+            updateCartBadge();
+            toggleCart();
+        });
+    
+        minus.addEventListener('click', function () {
+            if (count > 0) {
+                count--;
+                counter.textContent = count;
+                updateCartBadge();
+                if (smallcart.style.display === 'block') {
+                    updateCartContent();
+                }
+            }
+        });
+    
+        plus.addEventListener('click', function () {
+            count++;
+            counter.textContent = count;
+            updateCartBadge();
+            if (smallcart.style.display === 'block') {
+                updateCartContent();
+            }
         });
     </script>
+    
+    
     
 </body>
 </html>
